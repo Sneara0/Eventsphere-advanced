@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Navbar from "@/components/shared/Navbar"; // Navbar ইমপোর্ট করা হলো
+import AIChatbot from "@/components/AIChatbot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({
         >
           {/* Navbar এখানে থাকবে যাতে এটি সব পেজে দেখা যায় */}
           <Navbar /> 
+          <AIChatbot/>
           
           <main className="flex-grow">
             {children}
