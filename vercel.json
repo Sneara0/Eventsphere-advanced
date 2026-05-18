@@ -2,8 +2,6 @@
   "version": 2,
   "framework": "nextjs",
   "cleanUrls": true,
-  "buildCommand": "bun run build",
-  "installCommand": "bun install",
   "headers": [
     {
       "source": "/(.*)",
