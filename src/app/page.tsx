@@ -30,11 +30,21 @@ import {
   Headphones,
   Gift,
   TrendingUp,
-  Compass
+  Compass,
+  BookOpen,
+  MessageCircle,
+  HelpCircle,
+  Send,
+  Quote,
+  Briefcase,
+  Heart,
+  Trophy,
+  CheckCircle
 } from 'lucide-react'
 
 export default function LandingPage() {
   const [loading, setLoading] = useState(true)
+  const [activeFAQ, setActiveFAQ] = useState<number | null>(null)
 
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 1500)
@@ -84,6 +94,38 @@ export default function LandingPage() {
     { name: "Emma Williams", role: "Adventure Seeker", text: "50+ countries with FinNexus. Never disappointed!", rating: 5, avatar: "EW", location: "London, UK" }
   ]
 
+  // 📝 BLOG POSTS
+  const blogPosts = [
+    { title: "Top 10 Beach Destinations for 2024", desc: "Discover the most beautiful beaches around the world...", emoji: "🏖️", date: "May 15, 2024", readTime: "5 min read", category: "Destinations" },
+    { title: "Travel on a Budget: 15 Money-Saving Tips", desc: "Learn how to travel more while spending less...", emoji: "💰", date: "May 12, 2024", readTime: "7 min read", category: "Tips" },
+    { title: "Sustainable Travel Guide", desc: "How to reduce your carbon footprint while traveling...", emoji: "🌱", date: "May 10, 2024", readTime: "4 min read", category: "Eco-Travel" }
+  ]
+
+  // ❓ FAQ DATA
+  const faqs = [
+    { q: "How do I book a flight?", a: "Simply search for your destination, select your preferred flight, enter passenger details, and complete payment." },
+    { q: "Can I cancel my booking?", a: "Yes, free cancellation is available up to 24 hours before departure for most bookings." },
+    { q: "How does price match work?", a: "If you find a lower price elsewhere within 24 hours, we'll match it and give you $50 credit." },
+    { q: "Is my payment secure?", a: "Absolutely! We use 256-bit SSL encryption and never store your payment details." }
+  ]
+
+  // 🤝 PARTNERS
+  const partners = [
+    { name: "Emirates", icon: "✈️" },
+    { name: "Marriott", icon: "🏨" },
+    { name: "TripAdvisor", icon: "⭐" },
+    { name: "Booking.com", icon: "📚" },
+    { name: "Expedia", icon: "🌐" },
+    { name: "Airbnb", icon: "🏠" }
+  ]
+
+  // 🏆 AWARDS
+  const awards = [
+    { title: "Best Travel Platform", year: "2024", icon: Trophy, color: "from-amber-500 to-orange-500" },
+    { title: "Top Customer Service", year: "2023", icon: Headphones, color: "from-blue-500 to-cyan-500" },
+    { title: "Innovation Award", year: "2024", icon: Sparkles, color: "from-purple-500 to-pink-500" }
+  ]
+
   if (loading) {
     return (
       <div className="fixed inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center z-50">
@@ -97,7 +139,7 @@ export default function LandingPage() {
           animate={{ opacity: 1, y: 0 }}
           className="absolute mt-32 text-white text-lg font-semibold tracking-wider"
         >
-        EventSphere
+          EventSphere
         </motion.p>
       </div>
     )
@@ -106,9 +148,8 @@ export default function LandingPage() {
   return (
     <main className="flex flex-col min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950 text-slate-900 dark:text-white overflow-x-hidden">
       
-      {/* Hero Section */}
+      {/* ========== SECTION 1: HERO ========== */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Animated Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-indigo-950 dark:via-slate-950 dark:to-purple-950">
           <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-indigo-300 to-purple-300 rounded-full blur-[100px] opacity-30 animate-pulse" />
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-cyan-300 to-blue-300 rounded-full blur-[120px] opacity-30 animate-pulse delay-1000" />
@@ -133,9 +174,7 @@ export default function LandingPage() {
             className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[1.1] mb-6"
           >
             EXPLORE THE{" "}
-            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">
-              WORLD
-            </span>
+            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 bg-clip-text text-transparent">WORLD</span>
           </motion.h1>
 
           <motion.p
@@ -173,18 +212,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {/* ========== SECTION 2: STATISTICS ========== */}
       <section className="py-20 px-4 container mx-auto relative z-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group text-center p-6 rounded-2xl bg-white/50 dark:bg-slate-900/30 backdrop-blur-sm border border-slate-200/50 dark:border-slate-800/50 hover:shadow-xl transition-all"
-            >
+            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} className="group text-center p-6 rounded-2xl bg-white/50 dark:bg-slate-900/30 backdrop-blur-sm border border-slate-200/50 dark:border-slate-800/50 hover:shadow-xl transition-all">
               <div className={`w-12 h-12 mx-auto mb-4 bg-gradient-to-br ${stat.gradient} rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
                 <stat.icon className="w-6 h-6 text-white" />
               </div>
@@ -197,161 +229,110 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Categories Section */}
+      {/* ========== SECTION 3: CATEGORIES ========== */}
       <section className="py-24 px-4 container mx-auto relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div>
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-black text-xs uppercase tracking-[0.3em] mb-4"
-            >
+            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} className="flex items-center gap-2 text-indigo-600 font-black text-xs uppercase tracking-[0.3em] mb-4">
               <Sparkles size={14} /> Popular Destinations
             </motion.div>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-[1.1]">
-              CHOOSE YOUR{" "}
-              <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                ATMOSPHERE
-              </span>
-            </h2>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tighter">CHOOSE YOUR <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">ATMOSPHERE</span></h2>
           </div>
-          <button className="flex items-center gap-2 text-sm font-semibold text-indigo-600 dark:text-indigo-400 hover:gap-3 transition-all">
-            View All <ArrowRight size={16} />
-          </button>
+          <button className="flex items-center gap-2 text-sm font-semibold text-indigo-600 hover:gap-3">View All <ArrowRight size={16} /></button>
         </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((cat, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -8 }}
-              className="group relative h-80 rounded-3xl overflow-hidden cursor-pointer shadow-xl"
-            >
+            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} whileHover={{ y: -8 }} className="group relative h-80 rounded-3xl overflow-hidden cursor-pointer shadow-xl">
               <div className={`absolute inset-0 bg-gradient-to-br ${cat.gradient}`} />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-              
               <div className="relative z-10 h-full p-8 flex flex-col justify-between text-white">
                 <div className="flex justify-between items-start">
-                  <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <cat.icon size={28} />
-                  </div>
-                  {cat.popular && (
-                    <span className="px-3 py-1 bg-amber-400 text-amber-900 text-xs font-black rounded-full flex items-center gap-1">
-                      <Star size={12} /> Popular
-                    </span>
-                  )}
+                  <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform"><cat.icon size={28} /></div>
+                  {cat.popular && <span className="px-3 py-1 bg-amber-400 text-amber-900 text-xs font-black rounded-full flex items-center gap-1"><Star size={12} /> Popular</span>}
                 </div>
-                
-                <div>
-                  <h3 className="text-2xl font-black tracking-tight mb-1">{cat.name}</h3>
-                  <p className="text-white/80 text-sm mb-2">{cat.desc}</p>
-                  <div className="flex justify-between items-center">
-                    <span className="text-xs font-semibold uppercase tracking-wider">{cat.count}</span>
-                    <span className="text-2xl font-black">{cat.price}</span>
-                  </div>
-                </div>
+                <div><h3 className="text-2xl font-black tracking-tight mb-1">{cat.name}</h3><p className="text-white/80 text-sm mb-2">{cat.desc}</p><div className="flex justify-between items-center"><span className="text-xs font-semibold uppercase tracking-wider">{cat.count}</span><span className="text-2xl font-black">{cat.price}</span></div></div>
               </div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* ========== SECTION 4: SERVICES ========== */}
       <section className="py-24 px-4 container mx-auto relative z-10">
         <div className="text-center mb-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 bg-indigo-100 dark:bg-indigo-900/30 px-4 py-1.5 rounded-full mb-6"
-          >
-            <Zap size={14} className="text-indigo-600 dark:text-indigo-400" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 dark:text-indigo-400">Premium Services</span>
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-black tracking-tighter mb-6"
-          >
-            ELEVATED{" "}
-            <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              EXPERIENCE
-            </span>
-          </motion.h2>
-          <motion.p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
-            We provide end-to-end travel solutions with best-in-class services
-          </motion.p>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 bg-indigo-100 dark:bg-indigo-900/30 px-4 py-1.5 rounded-full mb-6"><Zap size={14} className="text-indigo-600" /><span className="text-[10px] font-black uppercase tracking-[0.3em]">Premium Services</span></motion.div>
+          <motion.h2 className="text-4xl md:text-5xl font-black tracking-tighter mb-6">ELEVATED <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">EXPERIENCE</span></motion.h2>
+          <p className="text-slate-500 max-w-2xl mx-auto">We provide end-to-end travel solutions with best-in-class services</p>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -8 }}
-              className="group p-6 rounded-2xl bg-white/50 dark:bg-slate-900/30 backdrop-blur-sm border border-slate-200/50 dark:border-slate-800/50 hover:shadow-xl transition-all"
-            >
-              <div className={`w-14 h-14 ${service.iconBg} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                <service.icon className={service.iconColor} size={28} />
-              </div>
-              <h3 className="text-xl font-black mb-3 tracking-tight">{service.title}</h3>
-              <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-sm">{service.desc}</p>
-              <div className="mt-6 pt-6 border-t border-slate-200/50 dark:border-slate-800/50 opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
-                  Learn More <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </span>
+            <motion.div key={index} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }} whileHover={{ y: -8 }} className="group p-6 rounded-2xl bg-white/50 dark:bg-slate-900/30 backdrop-blur-sm border border-slate-200/50 hover:shadow-xl transition-all">
+              <div className={`w-14 h-14 ${service.iconBg} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110`}><service.icon className={service.iconColor} size={28} /></div>
+              <h3 className="text-xl font-black mb-3">{service.title}</h3><p className="text-slate-500 text-sm">{service.desc}</p>
+              <div className="mt-6 pt-6 border-t border-slate-200/50 opacity-0 group-hover:opacity-100"><span className="text-sm font-semibold text-indigo-600 flex items-center gap-2">Learn More <ArrowRight size={14} className="group-hover:translate-x-1" /></span></div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ========== SECTION 5: FEATURES ========== */}
+      <section className="py-24 px-4 bg-gradient-to-r from-indigo-50/50 to-purple-50/50">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 bg-amber-100 dark:bg-amber-900/30 px-4 py-1.5 rounded-full mb-6"><Award size={14} className="text-amber-500" /><span className="text-[10px] font-black uppercase tracking-[0.3em]">Why Choose Us</span></motion.div>
+            <motion.h2 className="text-4xl md:text-5xl font-black tracking-tighter">TRAVEL WITH <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">CONFIDENCE</span></motion.h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((item, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} className="flex items-start gap-4 p-5 rounded-xl bg-white dark:bg-slate-900 shadow-sm hover:shadow-md">
+                <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center"><item.icon className={`w-6 h-6 ${item.color}`} /></div>
+                <div><h3 className="font-bold text-lg mb-1">{item.title}</h3><p className="text-sm text-slate-500">{item.desc}</p></div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ========== SECTION 6: TESTIMONIALS ========== */}
+      <section className="py-24 px-4 container mx-auto">
+        <div className="text-center mb-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 bg-amber-100 dark:bg-amber-900/30 px-4 py-1.5 rounded-full mb-6"><Star size={14} className="text-amber-500 fill-amber-500" /><span className="text-[10px] font-black uppercase tracking-[0.3em]">Love Notes</span></motion.div>
+          <motion.h2 className="text-4xl md:text-5xl font-black tracking-tighter">WHAT OUR <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">TRAVELERS SAY</span></motion.h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {testimonials.map((test, i) => (
+            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} className="p-6 rounded-2xl bg-white dark:bg-slate-900 shadow-xl border border-slate-100 hover:shadow-2xl">
+              <Quote className="w-8 h-8 text-indigo-400 mb-4" />
+              <p className="text-slate-600 mb-6 italic">"{test.text}"</p>
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">{test.avatar}</div>
+                <div><h4 className="font-semibold">{test.name}</h4><p className="text-xs text-slate-500">{test.role}</p><p className="text-xs text-slate-400 flex items-center gap-1"><Globe2 size={10} /> {test.location}</p></div>
               </div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-24 px-4 bg-gradient-to-r from-indigo-50/50 to-purple-50/50 dark:from-indigo-950/20 dark:to-purple-950/20">
+      {/* ========== SECTION 7: BLOG ========== */}
+      <section className="py-24 px-4 bg-gradient-to-r from-indigo-50/50 to-purple-50/50">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 bg-amber-100 dark:bg-amber-900/30 px-4 py-1.5 rounded-full mb-6"
-            >
-              <Award size={14} className="text-amber-500" />
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-600 dark:text-amber-400">Why Choose Us</span>
-            </motion.div>
-            <motion.h2 className="text-4xl md:text-5xl font-black tracking-tighter">
-              TRAVEL WITH{" "}
-              <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                CONFIDENCE
-              </span>
-            </motion.h2>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 bg-indigo-100 dark:bg-indigo-900/30 px-4 py-1.5 rounded-full mb-6"><BookOpen size={14} className="text-indigo-600" /><span className="text-[10px] font-black uppercase tracking-[0.3em]">Travel Blog</span></motion.div>
+            <motion.h2 className="text-4xl md:text-5xl font-black tracking-tighter">LATEST <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">STORIES</span></motion.h2>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="flex items-start gap-4 p-5 rounded-xl bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-all"
-              >
-                <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
-                  <item.icon className={`w-6 h-6 ${item.color}`} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg mb-1">{item.title}</h3>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">{item.desc}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {blogPosts.map((post, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} whileHover={{ y: -8 }} className="group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-lg">
+                <div className="h-48 bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-6xl">{post.emoji}</div>
+                <div className="p-6">
+                  <div className="flex items-center gap-3 text-xs text-slate-500 mb-3">
+                    <span className="px-2 py-1 bg-indigo-100 dark:bg-indigo-900/50 rounded-full text-indigo-600">{post.category}</span>
+                    <span className="flex items-center gap-1"><Calendar size={12} /> {post.date}</span>
+                    <span className="flex items-center gap-1"><Clock size={12} /> {post.readTime}</span>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2 group-hover:text-indigo-600">{post.title}</h3>
+                  <p className="text-slate-500 text-sm mb-4">{post.desc}</p>
+                  <button className="text-indigo-600 font-semibold text-sm flex items-center gap-1 group-hover:gap-2">Read More <ArrowRight size={14} /></button>
                 </div>
               </motion.div>
             ))}
@@ -359,149 +340,94 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-24 px-4 container mx-auto relative z-10">
+      {/* ========== SECTION 8: AWARDS ========== */}
+      <section className="py-24 px-4 container mx-auto">
         <div className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 bg-amber-100 dark:bg-amber-900/30 px-4 py-1.5 rounded-full mb-6"
-          >
-            <Star size={14} className="text-amber-500 fill-amber-500" />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-amber-600 dark:text-amber-400">Love Notes</span>
-          </motion.div>
-          <motion.h2 className="text-4xl md:text-5xl font-black tracking-tighter">
-            WHAT OUR{" "}
-            <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              TRAVELERS SAY
-            </span>
-          </motion.h2>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 bg-amber-100 dark:bg-amber-900/30 px-4 py-1.5 rounded-full mb-6"><Trophy size={14} className="text-amber-500" /><span className="text-[10px] font-black uppercase tracking-[0.3em]">Our Achievements</span></motion.div>
+          <motion.h2 className="text-4xl md:text-5xl font-black tracking-tighter">Awards & <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Recognition</span></motion.h2>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((test, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="p-6 rounded-2xl bg-white dark:bg-slate-900 shadow-xl border border-slate-100 dark:border-slate-800 hover:shadow-2xl transition-all"
-            >
-              <div className="flex items-center gap-2 mb-4">
-                <div className="text-amber-500 flex">
-                  {[...Array(5)].map((_, r) => (
-                    <Star key={r} size={16} className="fill-amber-500 text-amber-500" />
-                  ))}
-                </div>
-              </div>
-              <p className="text-slate-600 dark:text-slate-300 mb-6 italic leading-relaxed">"{test.text}"</p>
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
-                  {test.avatar}
-                </div>
-                <div>
-                  <h4 className="font-semibold">{test.name}</h4>
-                  <p className="text-xs text-slate-500">{test.role}</p>
-                  <p className="text-xs text-slate-400 flex items-center gap-1 mt-0.5">
-                    <Globe2 size={10} /> {test.location}
-                  </p>
-                </div>
-              </div>
+          {awards.map((award, i) => (
+            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} className={`text-center p-6 rounded-2xl bg-gradient-to-br ${award.color} bg-opacity-10 border border-white/10`}>
+              <div className="w-16 h-16 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center"><award.icon className="w-8 h-8 text-white" /></div>
+              <h3 className="text-xl font-bold text-white mb-1">{award.title}</h3>
+              <p className="text-white/70 text-sm">{award.year}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 px-4 container mx-auto relative z-10">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="max-w-5xl mx-auto text-center p-12 rounded-3xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600"
-        >
-          <h2 className="text-3xl md:text-5xl font-black text-white mb-4">
-            Ready to Start Your Journey?
-          </h2>
-          <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-            Join thousands of happy travelers who have discovered amazing destinations with FinNexus
-          </p>
+      {/* ========== SECTION 9: PARTNERS ========== */}
+      <section className="py-16 px-4 bg-gradient-to-r from-indigo-50/50 to-purple-50/50">
+        <div className="text-center mb-12">
+          <motion.h2 className="text-2xl md:text-3xl font-black tracking-tighter">Trusted by <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Leading Partners</span></motion.h2>
+        </div>
+        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+          {partners.map((partner, i) => (
+            <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.1 }} className="text-center">
+              <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center text-3xl">{partner.icon}</div>
+              <p className="text-sm text-slate-500 mt-2">{partner.name}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ========== SECTION 10: FAQ ========== */}
+      <section className="py-24 px-4 container mx-auto">
+        <div className="text-center mb-16">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 bg-purple-100 dark:bg-purple-900/30 px-4 py-1.5 rounded-full mb-6"><HelpCircle size={14} className="text-purple-600" /><span className="text-[10px] font-black uppercase tracking-[0.3em]">FAQ</span></motion.div>
+          <motion.h2 className="text-4xl md:text-5xl font-black tracking-tighter">FREQUENTLY ASKED <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">QUESTIONS</span></motion.h2>
+        </div>
+        <div className="max-w-3xl mx-auto">
+          {faqs.map((faq, i) => (
+            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} className="mb-4">
+              <button onClick={() => setActiveFAQ(activeFAQ === i ? null : i)} className="w-full flex justify-between items-center p-5 rounded-xl bg-white/50 dark:bg-slate-900/30 backdrop-blur-sm border border-slate-200/50 text-left">
+                <span className="font-semibold">{faq.q}</span>
+                <ChevronDown className={`w-5 h-5 transition-transform ${activeFAQ === i ? 'rotate-180' : ''}`} />
+              </button>
+              {activeFAQ === i && (
+                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="p-5 mt-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/30 text-slate-600 text-sm">
+                  {faq.a}
+                </motion.div>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ========== SECTION 11: CTA ========== */}
+      <section className="py-24 px-4 container mx-auto">
+        <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} className="max-w-5xl mx-auto text-center p-12 rounded-3xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600">
+          <h2 className="text-3xl md:text-5xl font-black text-white mb-4">Ready to Start Your Journey?</h2>
+          <p className="text-white/80 text-lg mb-8">Join thousands of happy travelers who have discovered amazing destinations with FinNexus</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-4 bg-white text-indigo-600 rounded-full font-bold text-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group">
-              Get Started <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-full font-semibold text-lg hover:bg-white/20 transition-all border border-white/20">
-              View Pricing
-            </button>
+            <button className="px-8 py-4 bg-white text-indigo-600 rounded-full font-bold text-lg hover:shadow-xl transition-all flex items-center gap-2 group">Get Started <ArrowRight className="group-hover:translate-x-1" /></button>
+            <button className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white rounded-full font-semibold text-lg hover:bg-white/20 border border-white/20">View Pricing</button>
           </div>
         </motion.div>
       </section>
 
-      {/* Newsletter Section */}
-      <section className="py-16 px-4 container mx-auto relative z-10">
+      {/* ========== SECTION 12: NEWSLETTER ========== */}
+      <section className="py-16 px-4 container mx-auto">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <input
-              type="email"
-              placeholder="Enter your email for exclusive deals"
-              className="flex-1 px-6 py-3 rounded-full bg-white/10 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
-            <button className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full text-white font-semibold hover:shadow-lg transition-all">
-              Subscribe
-            </button>
-          </motion.div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <input type="email" placeholder="Enter your email for exclusive deals" className="flex-1 px-6 py-3 rounded-full bg-white/10 dark:bg-slate-900/30 border border-slate-200 text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            <button className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full text-white font-semibold hover:shadow-lg transition-all flex items-center gap-2 group">Subscribe <Send size={16} className="group-hover:translate-x-1" /></button>
+          </div>
           <p className="text-xs text-slate-500 mt-4">Get updates on new destinations and exclusive offers</p>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* ========== SECTION 13: FOOTER ========== */}
       <footer className="bg-slate-900 dark:bg-slate-950 text-white mt-16">
         <div className="container mx-auto px-4 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center">
-                  <Compass className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold">FEventsphere</span>
-              </div>
-              <p className="text-slate-400 text-sm">Your trusted partner for unforgettable journeys.</p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Quick Links</h4>
-              <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link href="/about" className="hover:text-indigo-400 transition">About Us</Link></li>
-                <li><Link href="/destinations" className="hover:text-indigo-400 transition">Destinations</Link></li>
-                <li><Link href="/contact" className="hover:text-indigo-400 transition">Contact</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link href="/faq" className="hover:text-indigo-400 transition">FAQ</Link></li>
-                <li><Link href="/privacy" className="hover:text-indigo-400 transition">Privacy Policy</Link></li>
-                <li><Link href="/terms" className="hover:text-indigo-400 transition">Terms of Service</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4">Connect</h4>
-              <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link href="#" className="hover:text-indigo-400 transition">Instagram</Link></li>
-                <li><Link href="#" className="hover:text-indigo-400 transition">Facebook</Link></li>
-                <li><Link href="#" className="hover:text-indigo-400 transition">Twitter</Link></li>
-              </ul>
-            </div>
+            <div><div className="flex items-center gap-2 mb-4"><div className="w-10 h-10 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center"><Compass className="w-5 h-5 text-white" /></div><span className="text-xl font-bold">EventSphere</span></div><p className="text-slate-400 text-sm">Your trusted partner for unforgettable journeys.</p></div>
+            <div><h4 className="font-semibold mb-4">Quick Links</h4><ul className="space-y-2 text-sm text-slate-400"><li><Link href="/about" className="hover:text-indigo-400">About Us</Link></li><li><Link href="/destinations" className="hover:text-indigo-400">Destinations</Link></li><li><Link href="/contact" className="hover:text-indigo-400">Contact</Link></li></ul></div>
+            <div><h4 className="font-semibold mb-4">Support</h4><ul className="space-y-2 text-sm text-slate-400"><li><Link href="/faq" className="hover:text-indigo-400">FAQ</Link></li><li><Link href="/privacy" className="hover:text-indigo-400">Privacy Policy</Link></li><li><Link href="/terms" className="hover:text-indigo-400">Terms of Service</Link></li></ul></div>
+            <div><h4 className="font-semibold mb-4">Connect</h4><ul className="space-y-2 text-sm text-slate-400"><li><Link href="#" className="hover:text-indigo-400">Instagram</Link></li><li><Link href="#" className="hover:text-indigo-400">Facebook</Link></li><li><Link href="#" className="hover:text-indigo-400">Twitter</Link></li></ul></div>
           </div>
-          <div className="border-t border-slate-800 mt-8 pt-8 text-center text-sm text-slate-500">
-            <p>&copy; 2024 FinNexus. All rights reserved.</p>
-          </div>
+          <div className="border-t border-slate-800 mt-8 pt-8 text-center text-sm text-slate-500"><p>&copy; 2024 EventSphere. All rights reserved.</p></div>
         </div>
       </footer>
     </main>
